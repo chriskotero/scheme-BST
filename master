@@ -1,0 +1,30 @@
+# Created by Christiane Kotero for CSCI 169 Programming languages
+
+#lang racket
+
+(define value (lambda (bst) (car bst))) ;; the value of the node
+(define left (lambda (bst) (cadr bst))) ;; the head of the left node
+(define right (lambda (bst) (cadr(cdr bst)))) ;; the head of the right node
+                             
+
+(define (create_node x y z)
+  (lambda (x y z) (list x y z)))
+  
+(define (swap_node ls x y z)
+  (lambda (x y z) (=(car ls)x)(=(cadr ls) y)(=(cadr(cdr ls))z)))
+     
+(define (ismember ls n)
+  (cond ((null? ls)false)
+        ((=(car ls)n) true)
+        (else (cons(car ls) (ismember (cdr ls) n)))))
+
+(define (insert ls n)
+   (if (< n (car ls))
+   (cond ((null? (cadr ls))(create_node n 0 0))
+        (else
+           (if (< n (cadr ls))(insert (cdr(cadr ls)) n))
+           (else (swap_node (create_node 0 0 0) (car ls) (cadr ls) (cadr(cdr ls)))))))
+    (if (> n (car ls))
+        (if (null? (cadr(cdr ls))) (create_node n 0 0))
+        (else (if (> n cadr(cdr ls)) (insert (cadr(cdr ls)) n ))
+               (else (swap_node (create_node 0 0 0) n (cadr ls) (cadr(cdr ls)))))))
