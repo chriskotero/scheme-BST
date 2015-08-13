@@ -1,2 +1,2 @@
-# scala-BST
-A short scala program to create a Binary Search Tree.
+# scheme-BST
+# A short scheme program to create a Binary Search Tree.
